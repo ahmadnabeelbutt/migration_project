@@ -1,0 +1,5 @@
+services:
+  custom_migrate.commands:
+    class: Drupal\custom_migrate\Commands\CustomMigrateCommands
+    tags:
+      - { name: drush.command }

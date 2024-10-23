@@ -45,6 +45,6 @@
     text-decoration: underline;
 }
 
-.users-companies-table .lat-long {
-    margin-left: 12px; 
+.user-address .lat-long {
+    margin-left: 15px; 
 }

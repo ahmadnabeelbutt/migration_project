@@ -31,23 +31,19 @@
                         </div>
                     </td>
                     <td>
-                        {% for address in user.address_data %}
                         <div>
-                            <strong>Street:</strong> {{ address.street }}<br>
-                            <strong>City:</strong> {{ address.city }}<br>
-                            <strong>Zipcode:</strong> {{ address.zipcode }}<br>
-                            <strong>Suite:</strong> {{ address.suite }}<br>
-                        <div>
-                            <div><strong>Geo:</strong></div>
+                            <strong>Street:</strong> {{ user.address_data.street }}<br>
+                            <strong>City:</strong> {{ user.address_data.city }}<br>
+                            <strong>Zipcode:</strong> {{ user.address_data.zipcode }}<br>
+                            <strong>Suite:</strong> {{ user.address_data.suite }}<br>
+                            <div class="user-address">
+                                <strong>Geo:</strong>
                                 <div class="lat-long">
-                                    <strong>Lat:</strong> {{ address.geo_lat }}<br>
-                                    <strong>Long:</strong> {{ address.geo_long }}<br>
+                                    <strong>Lat:</strong> {{ user.address_data.geo_lat }}<br>
+                                    <strong>Long:</strong> {{ user.address_data.geo_long }}<br>
                                 </div>
                             </div>
                         </div>
-                        {% else %}
-                            <p>No addresses available.</p>
-                        {% endfor %}
                     </td>
                 </tr>
             {% endfor %}

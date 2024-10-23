@@ -7,7 +7,6 @@ dependencies:
   - drupal:migrate
   - drupal:migrate_plus
   - drupal:migrate_tools
-  - drupal:paragraphs
 libraries:
   custom_migrate_styles:
     css:

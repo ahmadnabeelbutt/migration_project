@@ -1,25 +1,98 @@
-id: migrate_companies
-label: 'Migrate Companies from JSON'
+id: migrate_users
+label: 'Custom JSON User Migration'
 source:
   plugin: url
   data_fetcher_plugin: http
   data_parser_plugin: json
-  urls:
-    - 'http://jsonplaceholder.typicode.com/users'
+  urls: 
+    - http://jsonplaceholder.typicode.com/users
   item_selector: '/'
+  fields:
+    -
+      name: id
+      label: 'ID'
+      selector: id
+    -
+      name: email
+      label: 'email'
+      selector: email
+    -
+      name: username
+      label: 'Username'
+      selector: username
+    -
+      name: field_name
+      label: 'Name'
+      selector: name
+    -
+      name: field_phone
+      label: 'Phone'
+      selector: phone
+    -
+      name: field_website
+      label: 'website'
+      selector: website
+    -
+      name: company_name
+      label: 'Company Name'
+      selector: company/name  
+    - 
+      name: address_street
+      label: 'Street'
+      selector: address/street
+    - 
+      name: address_suite
+      label: 'Suite'
+      selector: address/suite
+    - 
+      name: address_city
+      label: 'City'
+      selector: address/city
+    - 
+      name: address_zipcode
+      label: 'Zipcode'
+      selector: address/zipcode
+    - 
+      name: address_lat
+      label: 'Latitude'
+      selector: address/geo/lat
+    - 
+      name: address_lng
+      label: 'Longitude'
+      selector: address/geo/lng
+  ids: 
+    id:
+      type: integer
 
 process:
-  title: company.name
-  field_ca: company.catchPhrase
-  field_bs: company.bs
-  uuid:
-    plugin: uuid
+  name: username
+  mail: email
+  field_name: field_name
+  field_phone: field_phone
+  field_website: field_website
+  field_street: address_street
+  field_suite: address_suite
+  field_city: address_city
+  field_zipcode: address_zipcode
+  field_geo_latitude: address_lat
+  field_geo_longitude: address_lng
+  field_company:
+    plugin: entity_lookup
+    source: company_name
+    entity_type: node
+    bundle: company
+    value_key: title  # Matching the company by the title in the nodes
+  status:
+    plugin: default_value
+    default_value: 1  # Ensures users are active
+  roles:
+    plugin: default_value
+    default_value:
+      - authenticated  # Assigns authenticated role to all users
+  uid:
+    plugin: skip_on_empty
+    method: process
+    source: id
 
 destination:
-  plugin: 'entity:node'
-  default_bundle: company
-
-unique_keys:
-  - title
-
-migration_dependencies: {}
+  plugin: entity:user
