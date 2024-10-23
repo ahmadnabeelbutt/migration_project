@@ -1,0 +1,25 @@
+id: migrate_companies
+label: 'Migrate Companies from JSON'
+source:
+  plugin: url
+  data_fetcher_plugin: http
+  data_parser_plugin: json
+  urls:
+    - 'http://jsonplaceholder.typicode.com/users'
+  item_selector: '/'
+
+process:
+  title: company.name
+  field_ca: company.catchPhrase
+  field_bs: company.bs
+  uuid:
+    plugin: uuid
+
+destination:
+  plugin: 'entity:node'
+  default_bundle: company
+
+unique_keys:
+  - title
+
+migration_dependencies: {}

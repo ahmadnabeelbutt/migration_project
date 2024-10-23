@@ -1,0 +1,27 @@
+id: migrate_company
+label: 'Migrazione delle aziende da JSON Placeholder API'
+migration_group: default
+source:
+  plugin: url
+  data_fetcher_plugin: http
+  data_parser_plugin: json
+  urls: http://jsonplaceholder.typicode.com/users
+  item_selector: '/'
+  fields:
+    -
+      name: company.name
+      label: 'Nome azienda'
+    -
+      name: company.catchPhrase
+      label: 'Slogan'
+    -
+      name: company.bs
+      label: 'Settore business'
+destination:
+  plugin: entity:node
+  default_bundle: company  # Assicurati che sia il nome macchina del tuo content type "Company"
+process:
+  title: company.name  # Campo titolo per l'azienda
+  field_ca: company.catchPhrase  # Campo personalizzato per lo slogan
+  field_bs: company.bs  # Campo personalizzato per il settore business
+migration_dependencies: null

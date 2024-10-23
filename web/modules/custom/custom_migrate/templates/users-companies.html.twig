@@ -1,0 +1,59 @@
+{# users-companies.html.twig #}
+<div class="users-companies-table">
+    {% if users %}
+    <table>
+        <thead>
+            <tr>
+                <th>{{ 'ID'|t }}</th>
+                <th>{{ 'Name'|t }}</th>
+                <th>{{ 'Username'|t }}</th>
+                <th>{{ 'Email'|t }}</th>
+                <th>{{ 'Phone'|t }}</th>
+                <th>{{ 'Website'|t }}</th>
+                <th>{{ 'Company'|t }}</th>
+                <th>{{ 'Address'|t }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.phone }}</td>
+                    <td><a href="http://{{ user.website }}" target="_blank">{{ user.website }}</a></td>
+                    <td>
+                        <div>
+                            <strong>Name:</strong> {{ user.company.name }}<br>
+                            <strong>Catch phrase:</strong> {{ user.company.catch_phrase }}<br>
+                            <strong>bs:</strong> {{ user.company.bs }}<br>
+                        </div>
+                    </td>
+                    <td>
+                        {% for address in user.address_data %}
+                        <div>
+                            <strong>Street:</strong> {{ address.street }}<br>
+                            <strong>City:</strong> {{ address.city }}<br>
+                            <strong>Zipcode:</strong> {{ address.zipcode }}<br>
+                            <strong>Suite:</strong> {{ address.suite }}<br>
+                        <div>
+                            <div><strong>Geo:</strong></div>
+                                <div class="lat-long">
+                                    <strong>Lat:</strong> {{ address.geo_lat }}<br>
+                                    <strong>Long:</strong> {{ address.geo_long }}<br>
+                                </div>
+                            </div>
+                        </div>
+                        {% else %}
+                            <p>No addresses available.</p>
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>{{ 'No users found.'|t }}</p>
+    {% endif %}
+</div>
